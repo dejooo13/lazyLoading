@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/load.css">
+</head>
+
+<body>
+    <div class="lazy-container" data-url="https://s1.mogree.com/spoggy/api/v1/blog">
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item">
+            <img src="https://placehold.it/960x540" />
+        </div>
+        <div class="lazy-item" id="last">
+            <img src="https://placehold.it/960x540" />
+        </div>
+    </div>  
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script src="public/lejzi.js"></script>
+    <script>
+            const container = document.querySelector('.lazy-container')
+        function callback(data) {
+            data.listresponse.forEach(blog => {
+            if (blog.slug) {
+    
+                    container.insertAdjacentHTML('beforeend', `
+        <a class="list_blog lazy-item" href="javascript:void(0)" data-id="${blog.itemid}">
+            <div class="card">
+                <img class="card-img-top" src=${blog.gallery[0]} alt="Blog image">
+                <div class="card-body">
+                    <div>
+                        <h6 class="card-title">${blog.title}</h6>
+                        <p class="text-muted text-left date">
+                            <small>${blog.date_published}</small>
+                        </p>
+                    </div>
+                    <div class="clamp">
+                        <span class="card-text text-left">${blog.short_description}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        `);
+            }
+        })
+}
+
+const lazy = new LazyLoad({
+page: 0,
+results: 5,
+method: 'POST',
+url_settings: {
+    password: 'Coffee'
+},
+after_view: callback
+});
+    </script>
+</body>
+
+</html>
